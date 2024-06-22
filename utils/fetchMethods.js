@@ -24,11 +24,11 @@ const request = async (url, options = {}) => {
 // Products
 export const fetchProducts = () => request('/products');
 
-export const uploadProduct = (productData) =>
-  request('/products', {
-    method: 'POST',
-    body: JSON.stringify(productData),
-  });
+// export const uploadProduct = (productData) =>
+//   request('/products', {
+//     method: 'POST',
+//     body: JSON.stringify(productData),
+//   });
 
 export const removeProduct = (productId) =>
   request(`/products/${productId}`, {
@@ -38,11 +38,32 @@ export const removeProduct = (productId) =>
 // Categories
 export const fetchCategories = () => request('/categories');
 
-export const uploadCategory = (categoryData) =>
-  request('/categories', {
-    method: 'POST',
-    body: JSON.stringify(categoryData),
-  });
+// export const uploadCategory = (categoryData) =>
+//   request('/categories', {
+//     method: 'POST',
+//     body: JSON.stringify(categoryData),
+//   });
+
+// utils/fetchMethods.js
+
+export async function uploadCategory(formData) {
+  try {
+    const response = await fetch('/categories', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to upload category');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 
 export const removeCategory = (categoryId) =>
   request(`/categories/${categoryId}`, {
@@ -50,7 +71,7 @@ export const removeCategory = (categoryId) =>
   });
 
 // Orders
-export const fetchOrders = () => request('/orders');
+// export const fetchOrders = () => request('/orders');
 
 // Users
 export const fetchUsers = () => request('/users');
@@ -75,7 +96,7 @@ export const removeUser = (userId) =>
 
 // utils/fetchMethods.js
 export const changeBanner = async (bannerData) => {
-  const response = await fetch('/api/change-banner', {
+  const response = await fetch('/change-banner', {
     method: 'POST',
     body: bannerData,
   });
@@ -86,3 +107,38 @@ export const changeBanner = async (bannerData) => {
 
   return response.json();
 };
+
+// utils/fetchMethods.js
+
+export const  uploadProduct = async (formData) => {
+  try {
+    const response = await fetch('/Product', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to upload product');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+// utils/fetchMethods.js
+
+export const fetchOrders = async() => {
+  try {
+    const response = await fetch('/orders');
+    if (!response.ok) {
+      throw new Error('Failed to fetch orders');
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

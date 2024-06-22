@@ -1,26 +1,26 @@
 // components/CategoryList.js
-import React from 'react';
-
-const CategoryList = ({ categories, onRemoveCategory }) => {
+export default function CategoryList({ categories, onRemoveCategory }) {
   return (
-    <div className="mt-4">
-      <table className="min-w-full bg-white border">
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b-2 border-gray-300">ID</th>
-            <th className="py-2 px-4 border-b-2 border-gray-300">Name</th>
-            <th className="py-2 px-4 border-b-2 border-gray-300">Actions</th>
+            <th className="py-2 px-4 border-b">Category</th>
+            <th className="py-2 px-4 border-b">Image</th>
+            <th className="py-2 px-4 border-b">Actions</th>
           </tr>
         </thead>
         <tbody>
           {categories.map((category) => (
             <tr key={category.id}>
-              <td className="py-2 px-4 border-b border-gray-300 text-center">{category.id}</td>
-              <td className="py-2 px-4 border-b border-gray-300">{category.name}</td>
-              <td className="py-2 px-4 border-b border-gray-300 text-center">
+              <td className="py-2 px-4 border-b">{category.name}</td>
+              <td className="py-2 px-4 border-b">
+                <img src={category.imageUrl} alt={category.name} className="w-16 h-16 object-cover" />
+              </td>
+              <td className="py-2 px-4 border-b">
                 <button
-                  className="text-red-500 hover:text-red-700"
                   onClick={() => onRemoveCategory(category.id)}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                 >
                   Remove
                 </button>
@@ -31,6 +31,4 @@ const CategoryList = ({ categories, onRemoveCategory }) => {
       </table>
     </div>
   );
-};
-
-export default CategoryList;
+}
